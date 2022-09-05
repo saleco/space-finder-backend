@@ -15,17 +15,21 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
         body: 'Hello from DYnamoDb'
     }
 
-    const spaceId = event.queryStringParameters?.[PRIMARY_KEY]
+    try {
+        const spaceId = event.queryStringParameters?.[PRIMARY_KEY]
 
-    if (spaceId) {
-        const deleteResult = await dbClient.delete({
-            TableName: TABLE_NAME,
-            Key: {
-                [PRIMARY_KEY]: spaceId
-            }
-        }).promise();
+        if (spaceId) {
+            const deleteResult = await dbClient.delete({
+                TableName: TABLE_NAME,
+                Key: {
+                    [PRIMARY_KEY]: spaceId
+                }
+            }).promise();
 
-        result.body = JSON.stringify(deleteResult);
+            result.body = JSON.stringify(deleteResult);
+        }
+    } catch (error: any) {
+        result.body = error.message;
     }
     
     return result
