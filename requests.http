@@ -1,13 +1,14 @@
 @endpoint = https://rkxsphe8va.execute-api.eu-west-2.amazonaws.com/prod
-GET {{endpoint}}/hello/
-###
-
-GET {{endpoint}}/spaces?spaceId=1662379459972
-###
 
 GET {{endpoint}}/spaces
-
 ###
+
+GET {{endpoint}}/spaces?location=London
+###
+
+GET {{endpoint}}/spaces?spaceId=1662386442547
+###
+
 POST {{endpoint}}/spaces/
 Content-Type: application/json
 
@@ -15,4 +16,16 @@ Content-Type: application/json
     "location": "London",
     "name": "Best location"
 }
+###
+
+PUT {{endpoint}}/spaces?spaceId=1662386463852
+Content-Type: application/json
+
+{
+    "location": "Updated location"
+}
+###
+
+DELETE {{endpoint}}/spaces?spaceId=1662386442547
+Content-Type: application/json
 ###
