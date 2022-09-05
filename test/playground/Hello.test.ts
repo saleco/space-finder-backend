@@ -1,10 +1,14 @@
-import { handler } from '../../services/SpacesTable/Create';
+import { APIGatewayProxyEvent } from 'aws-lambda';
+import { handler } from '../../services/SpacesTable/Read';
 
-const event = {
-    body: {
-        location: 'Paris'
+const event: APIGatewayProxyEvent = {
+    queryStringParameters: {
+        spaceId: '1662379459972'
     }
-}
+} as any;
 
 
-handler(event as any, {} as any);
+const result = handler(event as any, {} as any).then((apiResult) => {
+    const items = JSON.parse(apiResult.body);
+    console.log(123)
+});
