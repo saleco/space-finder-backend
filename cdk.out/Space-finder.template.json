@@ -64,7 +64,7 @@
     "aws:cdk:path": "Space-finder/SpaceApi/Account"
    }
   },
-  "SpaceApiDeploymentA2B9E76582f22c0e2815a8c5d9b5bae88599765c": {
+  "SpaceApiDeploymentA2B9E765c1886ba323301b67805b98b34fdb9956": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "RestApiId": {
@@ -92,7 +92,7 @@
      "Ref": "SpaceApi1B373D2B"
     },
     "DeploymentId": {
-     "Ref": "SpaceApiDeploymentA2B9E76582f22c0e2815a8c5d9b5bae88599765c"
+     "Ref": "SpaceApiDeploymentA2B9E765c1886ba323301b67805b98b34fdb9956"
     },
     "StageName": "prod"
    },
@@ -215,7 +215,10 @@
     "RestApiId": {
      "Ref": "SpaceApi1B373D2B"
     },
-    "AuthorizationType": "NONE",
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "SpaceUserAuthorizer401AE1AA"
+    },
     "Integration": {
      "IntegrationHttpMethod": "POST",
      "Type": "AWS_PROXY",
@@ -264,133 +267,6 @@
    },
    "Metadata": {
     "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/Resource"
-   }
-  },
-  "SpaceApispacesPOSTApiPermissionSpacefinderSpaceApi0274A94DPOSTspaces246FCAB9": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "SpacesTableCreate125CEC52",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "SpaceApi1B373D2B"
-       },
-       "/",
-       {
-        "Ref": "SpaceApiDeploymentStageprodBB8A31FE"
-       },
-       "/POST/spaces"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces"
-   }
-  },
-  "SpaceApispacesPOSTApiPermissionTestSpacefinderSpaceApi0274A94DPOSTspaces76ACB000": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "SpacesTableCreate125CEC52",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "SpaceApi1B373D2B"
-       },
-       "/test-invoke-stage/POST/spaces"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces"
-   }
-  },
-  "SpaceApispacesPOST1DDB27B3": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "HttpMethod": "POST",
-    "ResourceId": {
-     "Ref": "SpaceApispacesD5EE855F"
-    },
-    "RestApiId": {
-     "Ref": "SpaceApi1B373D2B"
-    },
-    "AuthorizationType": "NONE",
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "SpacesTableCreate125CEC52",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/Resource"
    }
   },
   "SpaceApispacesGETApiPermissionSpacefinderSpaceApi0274A94DGETspacesE422E840": {
@@ -518,6 +394,133 @@
    },
    "Metadata": {
     "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/GET/Resource"
+   }
+  },
+  "SpaceApispacesPOSTApiPermissionSpacefinderSpaceApi0274A94DPOSTspaces246FCAB9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SpacesTableCreate125CEC52",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "SpaceApi1B373D2B"
+       },
+       "/",
+       {
+        "Ref": "SpaceApiDeploymentStageprodBB8A31FE"
+       },
+       "/POST/spaces"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces"
+   }
+  },
+  "SpaceApispacesPOSTApiPermissionTestSpacefinderSpaceApi0274A94DPOSTspaces76ACB000": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "SpacesTableCreate125CEC52",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "SpaceApi1B373D2B"
+       },
+       "/test-invoke-stage/POST/spaces"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces"
+   }
+  },
+  "SpaceApispacesPOST1DDB27B3": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "HttpMethod": "POST",
+    "ResourceId": {
+     "Ref": "SpaceApispacesD5EE855F"
+    },
+    "RestApiId": {
+     "Ref": "SpaceApi1B373D2B"
+    },
+    "AuthorizationType": "NONE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":apigateway:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "SpacesTableCreate125CEC52",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceApi/Default/spaces/POST/Resource"
    }
   },
   "SpaceApispacesPUTApiPermissionSpacefinderSpaceApi0274A94DPUTspacesEEAD7E00": {
@@ -1314,6 +1317,119 @@
     "aws:asset:property": "Code"
    }
   },
+  "SpaceUserPool6AB542DC": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_phone_number",
+       "Priority": 1
+      },
+      {
+       "Name": "verified_email",
+       "Priority": 2
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AliasAttributes": [
+     "email"
+    ],
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolName": "SpaceUserPool",
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceUserPool/Resource"
+   }
+  },
+  "SpaceUserPoolSpaceUserPoolclient4839E5E8": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "UserPoolId": {
+     "Ref": "SpaceUserPool6AB542DC"
+    },
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "profile",
+     "phone",
+     "email",
+     "openid",
+     "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+     "https://example.com"
+    ],
+    "ClientName": "SpaceUserPool-client",
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+     "ALLOW_CUSTOM_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceUserPool/SpaceUserPool-client/Resource"
+   }
+  },
+  "SpaceUserAuthorizer401AE1AA": {
+   "Type": "AWS::ApiGateway::Authorizer",
+   "Properties": {
+    "Name": "SpaceUserAuthorizer",
+    "RestApiId": {
+     "Ref": "SpaceApi1B373D2B"
+    },
+    "Type": "COGNITO_USER_POOLS",
+    "IdentitySource": "method.request.header.Authorization",
+    "ProviderARNs": [
+     {
+      "Fn::GetAtt": [
+       "SpaceUserPool6AB542DC",
+       "Arn"
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceUserAuthorizer/Resource"
+   }
+  },
+  "admins": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "UserPoolId": {
+     "Ref": "SpaceUserPool6AB542DC"
+    },
+    "GroupName": "admins"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/admins"
+   }
+  },
   "helloLambdaNodeJsServiceRole17C143C3": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -1379,7 +1495,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "620d83a9fe9338d3b67677d6dfb2115ffae316c7610b65a37f8425ae851c3a4e.zip"
+     "S3Key": "e1a306d949c208b07a6ba6c7108964a09b2964f1ccb67d7013b6bcb4c24f9d92.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1401,7 +1517,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-finder/helloLambdaNodeJs/Resource",
-    "aws:asset:path": "asset.620d83a9fe9338d3b67677d6dfb2115ffae316c7610b65a37f8425ae851c3a4e",
+    "aws:asset:path": "asset.e1a306d949c208b07a6ba6c7108964a09b2964f1ccb67d7013b6bcb4c24f9d92",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1409,7 +1525,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQy27DIBBFvyV7TJMmUtdOqu76UNq9NYZpMrYBywONLMv/XjCNkq7umat5cHmUu7Vcr+DChdJt0VEtp08PqhXRqibo6QQeLzDK6Yjsy57E4dveYamUC9aLZ+w7NxqMGN27Km47YfIyxFEXBoV74FvxtzPzK/qz08nKNAsCE8+7Lvcl/XAdqTGVmWbRgak1yClZOBhiJmdTw0uwykeehR4tGKdjwi+o87IFrsOVdRoblm+LXOcEbytgRs+yTBJruQ+qRZ8izGnLe/B98Lc0S1+KS/b0L1rkg7Oa8nvSOdnww89mJzdPcrtqmKgY4m+SQXnM+gubW4SLoQEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/3WRQU/DMAyFfwv3LGxsEuduCE7ANOA8ZYkp3tq4ihOmUvW/kzTrNg6c/PmpfrFf7+RiKqc36sgTbQ6TCneye/NKH0SUtp1qsFQejqqV3QbYFw2K1ae9wkJrCtaLB2gqamuIGNWrLrqVkLQMcZSC07BUfGlOnpmfwX+RSdJIVFr09MHg1kQVFyHKDn/ADQucu16gquOeVGXDVNdUoW5Tm6kXlap3RskuSeBqZEay6YPHYLWP3AvTWlWTiVG8q102G2Ac3loysGf5MpRxTvB8q5jBsyxSib1cBn0AP9yq8xWyG+9ItmceYVXhKcL/lSdHoen7JL0G3wR/yXF4OAWNtvwTauQVWYP5wLS/3PPt92whZ/dyfrNnxImL/xFrkJtcfwHyGDV2GwIAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "Space-finder/CDKMetadata/Default"
@@ -1442,6 +1558,16 @@
       "/"
      ]
     ]
+   }
+  },
+  "UserPoolId": {
+   "Value": {
+    "Ref": "SpaceUserPool6AB542DC"
+   }
+  },
+  "UserPoolClientId": {
+   "Value": {
+    "Ref": "SpaceUserPoolSpaceUserPoolclient4839E5E8"
    }
   }
  },

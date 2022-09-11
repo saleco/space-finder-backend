@@ -143,7 +143,7 @@
                           "Ref": "SpaceApi1B373D2B"
                         },
                         "deploymentId": {
-                          "Ref": "SpaceApiDeploymentA2B9E76582f22c0e2815a8c5d9b5bae88599765c"
+                          "Ref": "SpaceApiDeploymentA2B9E765c1886ba323301b67805b98b34fdb9956"
                         },
                         "stageName": "prod"
                       }
@@ -309,7 +309,10 @@
                                 "restApiId": {
                                   "Ref": "SpaceApi1B373D2B"
                                 },
-                                "authorizationType": "NONE",
+                                "authorizationType": "COGNITO_USER_POOLS",
+                                "authorizerId": {
+                                  "Ref": "SpaceUserAuthorizer401AE1AA"
+                                },
                                 "integration": {
                                   "type": "AWS_PROXY",
                                   "uri": {
@@ -380,158 +383,6 @@
                         },
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
-                          "version": "2.40.0"
-                        }
-                      },
-                      "POST": {
-                        "id": "POST",
-                        "path": "Space-finder/SpaceApi/Default/spaces/POST",
-                        "children": {
-                          "ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces": {
-                            "id": "ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces",
-                            "path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "SpacesTableCreate125CEC52",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "SpaceApi1B373D2B"
-                                      },
-                                      "/",
-                                      {
-                                        "Ref": "SpaceApiDeploymentStageprodBB8A31FE"
-                                      },
-                                      "/POST/spaces"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.40.0"
-                            }
-                          },
-                          "ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces": {
-                            "id": "ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces",
-                            "path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                              "aws:cdk:cloudformation:props": {
-                                "action": "lambda:InvokeFunction",
-                                "functionName": {
-                                  "Fn::GetAtt": [
-                                    "SpacesTableCreate125CEC52",
-                                    "Arn"
-                                  ]
-                                },
-                                "principal": "apigateway.amazonaws.com",
-                                "sourceArn": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":execute-api:",
-                                      {
-                                        "Ref": "AWS::Region"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "AWS::AccountId"
-                                      },
-                                      ":",
-                                      {
-                                        "Ref": "SpaceApi1B373D2B"
-                                      },
-                                      "/test-invoke-stage/POST/spaces"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                              "version": "2.40.0"
-                            }
-                          },
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "Space-finder/SpaceApi/Default/spaces/POST/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
-                              "aws:cdk:cloudformation:props": {
-                                "httpMethod": "POST",
-                                "resourceId": {
-                                  "Ref": "SpaceApispacesD5EE855F"
-                                },
-                                "restApiId": {
-                                  "Ref": "SpaceApi1B373D2B"
-                                },
-                                "authorizationType": "NONE",
-                                "integration": {
-                                  "type": "AWS_PROXY",
-                                  "uri": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":apigateway:",
-                                        {
-                                          "Ref": "AWS::Region"
-                                        },
-                                        ":lambda:path/2015-03-31/functions/",
-                                        {
-                                          "Fn::GetAtt": [
-                                            "SpacesTableCreate125CEC52",
-                                            "Arn"
-                                          ]
-                                        },
-                                        "/invocations"
-                                      ]
-                                    ]
-                                  },
-                                  "integrationHttpMethod": "POST"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
-                              "version": "2.40.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
                           "version": "2.40.0"
                         }
                       },
@@ -665,6 +516,158 @@
                                         {
                                           "Fn::GetAtt": [
                                             "SpacesTableReadC88C4D14",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.40.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.40.0"
+                        }
+                      },
+                      "POST": {
+                        "id": "POST",
+                        "path": "Space-finder/SpaceApi/Default/spaces/POST",
+                        "children": {
+                          "ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces": {
+                            "id": "ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces",
+                            "path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.SpacefinderSpaceApi0274A94D.POST..spaces",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "SpacesTableCreate125CEC52",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "SpaceApi1B373D2B"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "SpaceApiDeploymentStageprodBB8A31FE"
+                                      },
+                                      "/POST/spaces"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.40.0"
+                            }
+                          },
+                          "ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces": {
+                            "id": "ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces",
+                            "path": "Space-finder/SpaceApi/Default/spaces/POST/ApiPermission.Test.SpacefinderSpaceApi0274A94D.POST..spaces",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "SpacesTableCreate125CEC52",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "SpaceApi1B373D2B"
+                                      },
+                                      "/test-invoke-stage/POST/spaces"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.40.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "Space-finder/SpaceApi/Default/spaces/POST/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "POST",
+                                "resourceId": {
+                                  "Ref": "SpaceApispacesD5EE855F"
+                                },
+                                "restApiId": {
+                                  "Ref": "SpaceApi1B373D2B"
+                                },
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "SpacesTableCreate125CEC52",
                                             "Arn"
                                           ]
                                         },
@@ -1826,6 +1829,183 @@
               "version": "2.40.0"
             }
           },
+          "SpaceUserPool": {
+            "id": "SpaceUserPool",
+            "path": "Space-finder/SpaceUserPool",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Space-finder/SpaceUserPool/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
+                  "aws:cdk:cloudformation:props": {
+                    "accountRecoverySetting": {
+                      "recoveryMechanisms": [
+                        {
+                          "name": "verified_phone_number",
+                          "priority": 1
+                        },
+                        {
+                          "name": "verified_email",
+                          "priority": 2
+                        }
+                      ]
+                    },
+                    "adminCreateUserConfig": {
+                      "allowAdminCreateUserOnly": false
+                    },
+                    "aliasAttributes": [
+                      "email"
+                    ],
+                    "autoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "emailVerificationMessage": "The verification code to your new account is {####}",
+                    "emailVerificationSubject": "Verify your new account",
+                    "smsVerificationMessage": "The verification code to your new account is {####}",
+                    "userPoolName": "SpaceUserPool",
+                    "verificationMessageTemplate": {
+                      "defaultEmailOption": "CONFIRM_WITH_CODE",
+                      "emailMessage": "The verification code to your new account is {####}",
+                      "emailSubject": "Verify your new account",
+                      "smsMessage": "The verification code to your new account is {####}"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
+                  "version": "2.40.0"
+                }
+              },
+              "SpaceUserPool-client": {
+                "id": "SpaceUserPool-client",
+                "path": "Space-finder/SpaceUserPool/SpaceUserPool-client",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Space-finder/SpaceUserPool/SpaceUserPool-client/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
+                      "aws:cdk:cloudformation:props": {
+                        "userPoolId": {
+                          "Ref": "SpaceUserPool6AB542DC"
+                        },
+                        "allowedOAuthFlows": [
+                          "implicit",
+                          "code"
+                        ],
+                        "allowedOAuthFlowsUserPoolClient": true,
+                        "allowedOAuthScopes": [
+                          "profile",
+                          "phone",
+                          "email",
+                          "openid",
+                          "aws.cognito.signin.user.admin"
+                        ],
+                        "callbackUrLs": [
+                          "https://example.com"
+                        ],
+                        "clientName": "SpaceUserPool-client",
+                        "explicitAuthFlows": [
+                          "ALLOW_USER_PASSWORD_AUTH",
+                          "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+                          "ALLOW_CUSTOM_AUTH",
+                          "ALLOW_USER_SRP_AUTH",
+                          "ALLOW_REFRESH_TOKEN_AUTH"
+                        ],
+                        "generateSecret": false,
+                        "supportedIdentityProviders": [
+                          "COGNITO"
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
+                      "version": "2.40.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
+                  "version": "2.40.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cognito.UserPool",
+              "version": "2.40.0"
+            }
+          },
+          "UserPoolId": {
+            "id": "UserPoolId",
+            "path": "Space-finder/UserPoolId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.40.0"
+            }
+          },
+          "UserPoolClientId": {
+            "id": "UserPoolClientId",
+            "path": "Space-finder/UserPoolClientId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.40.0"
+            }
+          },
+          "SpaceUserAuthorizer": {
+            "id": "SpaceUserAuthorizer",
+            "path": "Space-finder/SpaceUserAuthorizer",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Space-finder/SpaceUserAuthorizer/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Authorizer",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "SpaceUserAuthorizer",
+                    "restApiId": {
+                      "Ref": "SpaceApi1B373D2B"
+                    },
+                    "type": "COGNITO_USER_POOLS",
+                    "identitySource": "method.request.header.Authorization",
+                    "providerArns": [
+                      {
+                        "Fn::GetAtt": [
+                          "SpaceUserPool6AB542DC",
+                          "Arn"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnAuthorizer",
+                  "version": "2.40.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.CognitoUserPoolsAuthorizer",
+              "version": "2.40.0"
+            }
+          },
+          "admins": {
+            "id": "admins",
+            "path": "Space-finder/admins",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolGroup",
+              "aws:cdk:cloudformation:props": {
+                "userPoolId": {
+                  "Ref": "SpaceUserPool6AB542DC"
+                },
+                "groupName": "admins"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolGroup",
+              "version": "2.40.0"
+            }
+          },
           "helloLambdaNodeJs": {
             "id": "helloLambdaNodeJs",
             "path": "Space-finder/helloLambdaNodeJs",
@@ -1954,7 +2134,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "620d83a9fe9338d3b67677d6dfb2115ffae316c7610b65a37f8425ae851c3a4e.zip"
+                      "s3Key": "e1a306d949c208b07a6ba6c7108964a09b2964f1ccb67d7013b6bcb4c24f9d92.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
