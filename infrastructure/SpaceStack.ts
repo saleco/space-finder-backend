@@ -1,12 +1,10 @@
 import { CfnOutput, Fn, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { join } from 'path';
 import { AuthorizationType, LambdaIntegration, MethodOptions, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { GenericTable } from './GenericTable';
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'; 
-import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { AuthorizerWrapper } from './auth/AuthorizerWrapper';
 import { Bucket, HttpMethods } from 'aws-cdk-lib/aws-s3';
+import { WebAppDeployment } from './WebAppDeployment';
 
 export class SpaceStack extends Stack {
 
@@ -36,6 +34,8 @@ export class SpaceStack extends Stack {
             this.api,
             this.spacesPhotoBucket.bucketArn + '/*'
         );
+
+        new WebAppDeployment(this, this.suffix);
 
         const optionsWithAuthorizer: MethodOptions = {
             authorizationType: AuthorizationType.COGNITO,
@@ -74,5 +74,6 @@ export class SpaceStack extends Stack {
         new CfnOutput(this, 'spaces-photos-bucket-name', {
             value: this.spacesPhotoBucket.bucketName
         });
+
     }
 }
